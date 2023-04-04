@@ -4,7 +4,8 @@ import datetime
 from discord.ext import commands
 
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix='/', intents=intents)
+
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 mentions_count = {}
 last_used = {}
@@ -12,7 +13,11 @@ last_used = {}
 greetings = ["Пивет черт, {user}!",
              "Здравствуй, {user}! Надеюсь, ты хорошо проведешь время здесь!",
              "{user} иди нахуй, я догоню",
-             "Рад что ты танкист {user}!"]
+             "Рад что ты танкист {user}!",
+             "Как сам, как мать {user}?",
+             "{user} здрасьте, стартуем?",
+             "{user} может пробитие хочешь??",
+             "Вечер в хату {user}"]
 
 
 @bot.event
@@ -36,7 +41,7 @@ async def rand(ctx):
         elapsed_time = datetime.datetime.now() - last_used[server_id]
         if elapsed_time.total_seconds() < 6 * 60 * 60:
             remaining_time = datetime.timedelta(seconds=int(6 * 60 * 60 - elapsed_time.total_seconds()))
-            await ctx.send(f"Команду можно будет использовать через {remaining_time}.")
+            await ctx.send(f"Слышь, жди ешё {remaining_time}.")
             return
 
     online_members = [member for member in ctx.guild.members if
@@ -102,8 +107,4 @@ def upload():
     pass
 
 
-reload()
-print('1')
 bot.run('MTA5MTg1MjM3MDI2NDIwMzM2NA.GTt_W3.Sqci461j48vJH0XRVzlBSWmtdDY_iQwwJLXBjY')
-print('2')
-upload()
