@@ -79,6 +79,9 @@ async def rand(ctx):
             mentions_count[random_member.name] = 1
             query = "INSERT INTO users (name, chatid, count) VALUES (%s, %s, %s)"
             cursor.execute(query, (random_member.name, server_id, 1))
+
+        await ctx.send(f'Пробитие для : {random_member.mention}')
+        last_used[server_id] = datetime.datetime.now()
         cnx.commit()
         cursor.close()
         cnx.close()
