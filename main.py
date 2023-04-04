@@ -105,7 +105,7 @@ def update_user_count(name, chatid):
 
 # функция для получения топ-3 пробитых пользователей
 def get_mention_stats(guild_id):
-    cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app:6657', database='railway')
+    cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app',port='6657', database='railway')
     cursor = cnx.cursor()
     query = "SELECT name, count FROM users WHERE chatid = %s ORDER BY count DESC LIMIT 3"
     cursor.execute(query, (guild_id,))
