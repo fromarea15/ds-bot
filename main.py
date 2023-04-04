@@ -39,8 +39,9 @@ async def rand(ctx):
 
     if server_id in last_used:
         elapsed_time = datetime.datetime.now() - last_used[server_id]
-        if elapsed_time.total_seconds() < 6 * 60 * 60:
-            remaining_time = datetime.timedelta(seconds=int(6 * 60 * 60 - elapsed_time.total_seconds()))
+        time = 60 * 60 / 2
+        if elapsed_time.total_seconds() < time:
+            remaining_time = datetime.timedelta(seconds=int(time - elapsed_time.total_seconds()))
             await ctx.send(f"Слышь, жди ешё {remaining_time}.")
             return
 
