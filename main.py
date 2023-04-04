@@ -43,7 +43,7 @@ async def rand(ctx):
                       (member.status != discord.Status.offline and not member.bot) or member.voice]
 
     # Получение информации о пользователях из базы данных
-    cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app:6657', database='railway')
+    cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app',port='6657', database='railway')
     cursor = cnx.cursor()
     query = "SELECT name, count FROM users WHERE chatid = %s"
     cursor.execute(query, (server_id,))
@@ -65,7 +65,7 @@ async def rand(ctx):
         random_member = random.choice(online_members)
 
         # Обновление информации о пользователе в базе данных
-        cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app:6657', database='railway')
+        cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app',port='6657', database='railway')
         cursor = cnx.cursor()
         if random_member.name in mentions_count:
             mentions_count[random_member.name] += 1
@@ -84,7 +84,7 @@ async def rand(ctx):
 
 # функция для обновления информации о пользователе в базе данных
 def update_user_count(name, chatid):
-    cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app:6657', database='railway')
+    cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app',port='6657', database='railway')
     cursor = cnx.cursor()
     query = "SELECT count FROM users WHERE name = %s AND chatid = %s"
     cursor.execute(query, (name, chatid))
