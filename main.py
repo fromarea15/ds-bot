@@ -43,7 +43,9 @@ async def rand(ctx):
                       (member.status != discord.Status.offline and not member.bot) or member.voice]
 
     # Получение информации о пользователях из базы данных
-    cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app',port='6657', database='railway')
+    cnx = mysql.connector.connect(user='root', password='OUvQYJ7S0VmFsTBKJlwf',
+                                  host='containers-us-west-57.railway.app', port='6657',
+                                  database='railway')
     cursor = cnx.cursor()
     query = "SELECT name, count FROM users WHERE chatid = %s"
     cursor.execute(query, (server_id,))
@@ -65,7 +67,9 @@ async def rand(ctx):
         random_member = random.choice(online_members)
 
         # Обновление информации о пользователе в базе данных
-        cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app',port='6657', database='railway')
+        cnx = mysql.connector.connect(user='root', password='OUvQYJ7S0VmFsTBKJlwf',
+                                      host='containers-us-west-57.railway.app', port='6657',
+                                      database='railway')
         cursor = cnx.cursor()
         if random_member.name in mentions_count:
             mentions_count[random_member.name] += 1
@@ -84,7 +88,9 @@ async def rand(ctx):
 
 # функция для обновления информации о пользователе в базе данных
 def update_user_count(name, chatid):
-    cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app',port='6657', database='railway')
+    cnx = mysql.connector.connect(user='root', password='OUvQYJ7S0VmFsTBKJlwf',
+                                  host='containers-us-west-57.railway.app', port='6657',
+                                  database='railway')
     cursor = cnx.cursor()
     query = "SELECT count FROM users WHERE name = %s AND chatid = %s"
     cursor.execute(query, (name, chatid))
@@ -103,9 +109,12 @@ def update_user_count(name, chatid):
     cursor.close()
     cnx.close()
 
+
 # функция для получения топ-3 пробитых пользователей
 def get_mention_stats(guild_id):
-    cnx = mysql.connector.connect(user='root', password='6657у', host='OUvQYJ7S0VmFsTBKJlwf@containers-us-west-57.railway.app',port='6657', database='railway')
+    cnx = mysql.connector.connect(user='root', password='OUvQYJ7S0VmFsTBKJlwf',
+                                  host='containers-us-west-57.railway.app', port='6657',
+                                  database='railway')
     cursor = cnx.cursor()
     query = "SELECT name, count FROM users WHERE chatid = %s ORDER BY count DESC LIMIT 3"
     cursor.execute(query, (guild_id,))
@@ -116,6 +125,7 @@ def get_mention_stats(guild_id):
     cnx.close()
 
     return mention_stats
+
 
 # команда для вывода топ-3 пробитых пользователей
 @bot.command()
@@ -131,6 +141,7 @@ async def stats(ctx):
         await ctx.send(stats_message)
     else:
         await ctx.send(f'Тут нет пробитых')
+
 
 def reload():
     pass
