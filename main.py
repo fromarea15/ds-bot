@@ -37,8 +37,10 @@ async def on_ready():
 
 @bot.command()
 async def rand(ctx):
+    """
+    Оформляет пробитие
+    """
     server_id = ctx.guild.id
-
     # Получение всех пользователей с чатид, присутствующих онлайн
     online_members = [member for member in ctx.guild.members if
                       (member.status != discord.Status.offline and not member.bot) or member.voice]
@@ -138,6 +140,9 @@ def get_mention_stats(guild_id):
 # команда для вывода топ-3 пробитых пользователей
 @bot.command()
 async def stats(ctx):
+    """
+    Статистика по пробитым
+    """
     guild_id = ctx.guild.id
     mention_stats = get_mention_stats(guild_id)
 
