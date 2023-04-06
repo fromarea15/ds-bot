@@ -150,7 +150,7 @@ async def stats(ctx):
         stats_message = "Топ пробитых:\n"
         for i, (count, names) in enumerate(mention_stats):
             stats_message += f"{i + 1}. {names}: {count}\n"
-        await ctx.send(f'```stats_message```')
+        await ctx.send(f'```{stats_message}```')
     else:
         await ctx.send(f'Тут нет пробитых')
 
