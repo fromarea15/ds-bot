@@ -147,11 +147,10 @@ async def stats(ctx):
     mention_stats = get_mention_stats(guild_id)
 
     if mention_stats:
-        stats_message = "```Топ пробитых:\n"
+        stats_message = "Топ пробитых:\n"
         for i, (count, names) in enumerate(mention_stats):
             stats_message += f"{i + 1}. {names}: {count}\n"
-        stats_message += '```'
-        await ctx.send(stats_message)
+        await ctx.send(f'```stats_message```')
     else:
         await ctx.send(f'Тут нет пробитых')
 
