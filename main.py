@@ -119,7 +119,7 @@ def get_mention_stats(guild_id):
                                   host='containers-us-west-42.railway.app', port='7287',
                                   database='railway')
     cursor = cnx.cursor()
-    query = "SELECT name, count FROM users WHERE chatid = %s ORDER BY count DESC LIMIT 3"
+    query = "SELECT name, count FROM users WHERE chatid = %s ORDER BY count DESC"
     cursor.execute(query, (guild_id,))
     result = cursor.fetchall()
 
@@ -137,13 +137,18 @@ async def stats(ctx):
     mention_stats = get_mention_stats(guild_id)
 
     if mention_stats:
-        top_mentions = mention_stats[:3]
-        stats_message = "Топ-3 пробитых :\n"
-        for i, (user, count) in enumerate(top_mentions):
-            stats_message += f"{i + 1}. {user}: {count}\n"
+        stats_message = "Топ пробитых:\n"
+        count = 0
+        prev_count = None
+        for user, num in mention_stats:
+            count += 1
+            if num != prev_count:
+                place = count
+            stats_message += f"{place}. {user}: {num}\n"
+            prev_count = num
         await ctx.send(stats_message)
     else:
-        await ctx.send(f'Тут нет пробитых')
+        await ctx.send('Тут нет пробитых')
 
 
 def reload():
