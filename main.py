@@ -1,6 +1,7 @@
 import discord
 import random
 import datetime
+import itertools
 import mysql.connector
 from discord.ext import commands
 
@@ -123,7 +124,11 @@ def get_mention_stats(guild_id):
     cursor.execute(query, (guild_id,))
     result = cursor.fetchall()
 
-    mention_stats = [(row[0], row[1]) for row in result]
+    mention_stats = []
+    for count, group in itertools.groupby(result, lambda x: x[1]):
+        names = ", ".join([row[0] for row in group])
+        mention_stats.append((count, names))
+
     cursor.close()
     cnx.close()
 
@@ -138,17 +143,11 @@ async def stats(ctx):
 
     if mention_stats:
         stats_message = "Топ пробитых:\n"
-        count = 0
-        prev_count = None
-        for user, num in mention_stats:
-            count += 1
-            if num != prev_count:
-                place = count
-            stats_message += f"{place}. {user}: {num}\n"
-            prev_count = num
+        for i, (count, names) in enumerate(mention_stats):
+            stats_message += f"{i + 1}. {names}: {count}\n"
         await ctx.send(stats_message)
     else:
-        await ctx.send('Тут нет пробитых')
+        await ctx.send(f'Тут нет пробитых')
 
 
 def reload():
